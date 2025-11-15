@@ -1,0 +1,25 @@
+---
+title: "Question 1"
+output: pdf_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(tidyverse)
+```
+
+# Data
+
+Just a brief description of the data used in this analysis.
+
+There are 4 files which I am going to import to this file later, two for Kenya, two for Bangladesh.
+
+For Kenya, there are "Kenya_Wealth", "Kenya_Income", and in each of them, it contains the following indicators:
+
+- Gini coefficient
+- Share of income/wealth held by highest 1%
+- Share of income/wealth held by highest 10%
+- Share of income/wealth held by bottom 50%
+- Share of income/wealth held by middle 40%
