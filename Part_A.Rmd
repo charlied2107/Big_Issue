@@ -1,5 +1,5 @@
 ---
-title: "Question 1"
+title: "Question 1 & 2"
 output: pdf_document
 date: "`r Sys.Date()`"
 ---
@@ -181,10 +181,10 @@ SS_Africa_W_Ineq <- read_excel("Data/Sub_Sahara_Africa_Wealth_Inequality.xlsx",
   col_names = FALSE
 )
 
-Euro_I_Ineq <- read_excel("Data/Europ_Income_Inequality.xls",
+SS_Asia_I_Ineq <- read_excel("Data/SAndSE_Asia_Income_Inequality.xls",
   col_names = FALSE
 )
-Euro_W_Ineq <- read_excel("Data/Euro_Wealth_Inequality.xlsx",
+SS_Asia_W_Ineq <- read_excel("Data/SAndSE_Asia_Wealth_Inequality.xlsx",
   col_names = FALSE
 )
 
@@ -194,16 +194,16 @@ Euro_W_Ineq <- read_excel("Data/Euro_Wealth_Inequality.xlsx",
 SS_Africa_I_Ineq_wider <- clean_data_inequality(SS_Africa_I_Ineq)
 SS_Africa_W_Ineq_wider <- clean_data_inequality(SS_Africa_W_Ineq)
 
-Euro_I_Ineq_wider <- clean_data_inequality(Euro_I_Ineq)
-Euro_W_Ineq_wider <- clean_data_inequality(Euro_W_Ineq)
+SS_Asia_I_Ineq_wider <- clean_data_inequality(SS_Asia_I_Ineq)
+SS_Asia_W_Ineq_wider <- clean_data_inequality(SS_Asia_W_Ineq)
 
 
 # Pivot longer for plot
 SS_Africa_I_Ineq_longer <- longer_format(SS_Africa_I_Ineq_wider)
 SS_Africa_W_Ineq_longer <- longer_format(SS_Africa_W_Ineq_wider)
 
-Euro_I_Ineq_longer <- longer_format(Euro_I_Ineq_wider)
-Euro_W_Ineq_longer <- longer_format(Euro_W_Ineq_wider)
+SS_Asia_I_Ineq_longer <- longer_format(SS_Asia_I_Ineq_wider)
+SS_Asia_W_Ineq_longer <- longer_format(SS_Asia_W_Ineq_wider)
 
 # Then we draw a line chart to compare the income and wealth distribution.
 # For simplicity, we compare the Gini coefficient only for now.
@@ -231,8 +231,8 @@ Africa_Inequality <- W_I_Gini(
   Ken_I_Ineq_wider, Ken_W_Ineq_wider
 )
 
-Euro_Inequality <- W_I_Gini(
-  Euro_I_Ineq_wider, Euro_W_Ineq_wider,
+SS_Asia_Inequality <- W_I_Gini(
+  SS_Asia_I_Ineq_wider, SS_Asia_W_Ineq_wider,
   Bang_I_Ineq_wider, Bang_W_Ineq_wider
 )
 
@@ -260,22 +260,23 @@ Africa_Inequality %>% ggplot(aes(x = Year, y = Gini_Coeff,
 
 
 
-# Compare Europe with Bangladesh
+# Compare South and Southeast Asia with Bangladesh
 
-Euro_Inequality %>% ggplot(aes(x = Year, y = Gini_Coeff,
+SS_Asia_Inequality %>% ggplot(aes(x = Year, y = Gini_Coeff,
                                colour = Country, linetype = Category))+
   geom_line()+
   geom_point()+
   scale_color_manual(
-    values = c("Bangladesh" = "#E69F00", "Europe (PPP)" = "#56b4e9",
-               labels = c("Bangladesh" = "Bangladesh", "Europe (PPP)" = "Europe"))
+    values = c("Bangladesh" = "#E69F00", "South & Southeast Asia (PPP)" = "#56b4e9"),
+               labels = c("Bangladesh" = "Bangladesh", 
+                          "South & Southeast Asia (PPP)" = "South & Southeast Asia")
   )+
   scale_linetype_manual(
     values = c("Wealth" = "dashed", "Income" = "solid")
   )+
   labs(
     title = "Gini Coefficient Comparison",
-    subtitle = "Europe v.s. Bangladesh",
+    subtitle = "South & Southeast Asia v.s. Bangladesh",
     x = "Year",
     y = "Gini Coefficient"
   )+
